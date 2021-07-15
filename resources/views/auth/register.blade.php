@@ -1,10 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.web')
 
 @section('content')
-<div class="container">
+    <div class="slash" style="height: 60px;">
+        <div class="row boxed">
+            <h3>Register</h3>
+        </div>
+    </div>
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card card-custom my-5">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
@@ -72,6 +77,10 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="slash inverse mt-4" style="height: 60px;">
+    <div class="row boxed">
     </div>
 </div>
 @endsection

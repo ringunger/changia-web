@@ -21,3 +21,5 @@ Route::group(['name' => 'Admin', 'namespace' => 'App\Controller\Client', 'prefix
 });
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/create', [App\Http\Controllers\EntreatyController::class, 'create'])->name('create_entreaty');
+Route::get('/e/{uid}', [App\Http\Controllers\EntreatyController::class, 'view'])->name('entreaty_view');

@@ -8,6 +8,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '~line-awesome/dist/line-awesome/css/line-awesome.min.css';
+@import '~highcharts/css/highcharts.css';
 
 
 body {
@@ -36,6 +37,15 @@ body {
 .text-red {
     color: #D83A56;
 }
+.btn-custom {
+    background-color: #D83A56;
+    color: #fff;
+    border-radius: 4px;
+    &:hover {
+        color: #fff;
+        background-color: #C82A46;
+    }
+}
 .btn-outline-custom {
     color: #D83A56;
     border: 1px solid #D83A56;
@@ -63,7 +73,7 @@ body {
     height: 260px;
     background-color: #D83A56;
     padding: 2rem 1rem;
-    /*-webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);*/
+    -webkit-clip-path: polygon(0 0, 0 100%, 100% 50%, 100% 0%, 75% 0);
     clip-path: polygon(0 0, 0 100%, 100% 50%, 100% 0%, 75% 0);
     color: #fff;
     .slash h3 {
@@ -75,10 +85,21 @@ body {
         background-color: #E84A66;
         min-height: 80px;
     }
+
+    &.inverse {
+        -webkit-clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 0%, 100% 0);
+        clip-path: polygon(0 50%, 0 100%, 100% 100%, 100% 0%, 100% 0);
+    }
 }
 
 
-
+.card-custom {
+    border: 1px solid #f8f8f8;
+    .card-header {
+        border-bottom: 1px solid #f8f8f8;
+        background-color: unset;
+    }
+}
 
 
 footer {
