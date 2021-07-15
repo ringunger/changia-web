@@ -1,0 +1,94 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100&family=Open+Sans&display=swap");
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~line-awesome/dist/line-awesome/css/line-awesome.min.css';
+
+
+body {
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: Montserrat,Arial,sans-serif;
+    color: #333;
+    font-weight: 400;
+}
+
+.boxed {
+    max-width: 1100px;
+    width: 99%;
+    margin: auto;
+}
+
+
+.text-red {
+    color: #D83A56;
+}
+.btn-outline-custom {
+    color: #D83A56;
+    border: 1px solid #D83A56;
+    border-radius: 4px;
+    &:hover {
+        background-color: #D83A56;
+        color: #fff;
+    }
+}
+
+
+.app-bar {
+    background-color: #D83A56;
+    height: 36px;
+    color: #fff;
+    margin: 0;
+    padding: 3px 1rem;
+    line-height: 30px;
+}
+
+
+
+.slash {
+    margin-top: -1px;
+    height: 260px;
+    background-color: #D83A56;
+    padding: 2rem 1rem;
+    /*-webkit-clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 25%, 75% 0);*/
+    clip-path: polygon(0 0, 0 100%, 100% 50%, 100% 0%, 75% 0);
+    color: #fff;
+    .slash h3 {
+
+    }
+    .action {
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: #E84A66;
+        min-height: 80px;
+    }
+}
+
+
+
+
+
+footer {
+    width: 100%;
+    margin: 0;
+    min-height: 300px;
+    padding: 3rem 1rem;
+    background-color: #222;
+    color: #fff;
+    h3 {
+
+    }
+}
