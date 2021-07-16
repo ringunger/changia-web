@@ -21,6 +21,7 @@ class EntreatySeeder extends Seeder
         DB::table('entreaties')->insert([
             [
                 'user_id' => 1,
+                'reference_number' => '1111',
                 'uid' => Str::random(),
                 'title' => 'Contribution for Young Africans Soccer Club',
                 'subtitle' =>'Money to pay players for the upcoming league',

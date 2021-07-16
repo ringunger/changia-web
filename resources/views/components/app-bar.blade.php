@@ -20,13 +20,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item {{ \Illuminate\Support\Facades\Route::current()->getName() === 'home' ? 'active' : '' }}">
                     <a class="nav-link" href="/">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <li class="nav-item {{ \Illuminate\Support\Facades\Route::current()->getName() === 'about' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('about') }}">About Changia
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @if (Route::has('login'))
+                        <a class="nav-link">{{\Illuminate\Support\Facades\Auth::user()->email}}</a>
+                    @else
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    @endif
                 </li>
             </ul>
         </div>

@@ -21,20 +21,20 @@
                             Create a new Entreaty<br > <i>Tell the community what you need them to contribute for</i>
                         </div>
                         <div class="mb-4">
-                            <div class="d-flex justify-content-between">
-                                <div class="me-3 fw-600">Total:</div>
-                                <div class="fst-italic"><span>$5</span><!----><!---->
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="me-3 fw-600">Subscription:</div>
-                                <div class="fst-italic">
-                                    <span>Monthly<fa-icon placement="left" ngbtooltip="Your card will be billed the subscription amount each month." class="ng-fa-icon ms-1 text-gray-500">
-                                            <svg role="img" aria-hidden="true" focusable="false" data-prefix="fad" data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M256 8C119 8 8 119.08 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 110a42 42 0 1 1-42 42 42 42 0 0 1 42-42zm56 254a12 12 0 0 1-12 12h-88a12 12 0 0 1-12-12v-24a12 12 0 0 1 12-12h12v-64h-12a12 12 0 0 1-12-12v-24a12 12 0 0 1 12-12h64a12 12 0 0 1 12 12v100h12a12 12 0 0 1 12 12z"></path><path class="fa-primary" fill="currentColor" d="M256 202a42 42 0 1 0-42-42 42 42 0 0 0 42 42zm44 134h-12V236a12 12 0 0 0-12-12h-64a12 12 0 0 0-12 12v24a12 12 0 0 0 12 12h12v64h-12a12 12 0 0 0-12 12v24a12 12 0 0 0 12 12h88a12 12 0 0 0 12-12v-24a12 12 0 0 0-12-12z"></path></g></svg>
-                                        </fa-icon>
-                                    </span>
-                                </div>
-                            </div>
+{{--                            <div class="d-flex justify-content-between">--}}
+{{--                                <div class="me-3 fw-600">Total:</div>--}}
+{{--                                <div class="fst-italic"><span>$5</span><!----><!---->--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="d-flex justify-content-between">--}}
+{{--                                <div class="me-3 fw-600">Subscription:</div>--}}
+{{--                                <div class="fst-italic">--}}
+{{--                                    <span>Monthly<fa-icon placement="left" ngbtooltip="Your card will be billed the subscription amount each month." class="ng-fa-icon ms-1 text-gray-500">--}}
+{{--                                            <svg role="img" aria-hidden="true" focusable="false" data-prefix="fad" data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g class="fa-group"><path class="fa-secondary" fill="currentColor" d="M256 8C119 8 8 119.08 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 110a42 42 0 1 1-42 42 42 42 0 0 1 42-42zm56 254a12 12 0 0 1-12 12h-88a12 12 0 0 1-12-12v-24a12 12 0 0 1 12-12h12v-64h-12a12 12 0 0 1-12-12v-24a12 12 0 0 1 12-12h64a12 12 0 0 1 12 12v100h12a12 12 0 0 1 12 12z"></path><path class="fa-primary" fill="currentColor" d="M256 202a42 42 0 1 0-42-42 42 42 0 0 0 42 42zm44 134h-12V236a12 12 0 0 0-12-12h-64a12 12 0 0 0-12 12v24a12 12 0 0 0 12 12h12v64h-12a12 12 0 0 0-12 12v24a12 12 0 0 0 12 12h88a12 12 0 0 0 12-12v-24a12 12 0 0 0-12-12z"></path></g></svg>--}}
+{{--                                        </fa-icon>--}}
+{{--                                    </span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div>
                         <form  id="entreaty_form" method="post" enctype="multipart/form-data" autocomplete="off" class="row">
                             @csrf
@@ -65,7 +65,7 @@
                             <div class="mb-3 col-6">
                                 <label for="name" class="small mb-1">Target amount <i>(optional)</i></label>
                                 <div class="input-group">
-                                    <input id="name" type="text" placeholder="Targeted amount"   class="form-control">
+                                    <input id="name" type="number" min="0" placeholder="Targeted amount"   class="form-control number-only">
                                     <select class="input-group-append form-control" style="max-width: 80px;">
                                         @foreach($currencies as $currency)
                                         <option value="{{$currency->id}}">{{$currency->symbol}}</option>
@@ -93,15 +93,16 @@
                             <div class="mb-3 col-12">
                                 <div id="card-errors" data-cy="cardErrors" class="small text-danger"></div></div>
                             <div class="mb-3">
-                                <div class="form-check"><input id="termsCheckbox" data-cy="termsAndConditionsInput" type="checkbox" formcontrolname="termsAndConditions" class="form-check-input ng-untouched ng-pristine ng-invalid">
+                                <div class="form-check">
+                                    <input id="termsCheckbox"  type="checkbox" formcontrolname="termsAndConditions" class="form-check-input ">
                                     <label for="termsCheckbox" class="form-check-label small terms-label">I have read and agree to the website
-                                        <a target="_blank" class="text-reset fw-bold" href="/terms-and-conditions">terms &amp; conditions</a>
+                                        <a target="_blank" class="text-reset fw-bold" href="{{ route('terms') }}">terms &amp; conditions</a>
                                     </label>
                                     <div class="invalid-feedback">You must accept the terms &amp; conditions.</div>
                                 </div>
                             </div>
                             <div class="col-6 offset-6 col-md-4 offset-md-8 col-lg-3 offset-lg-9">
-                                <button type="submit" name="createEntreaty" class="btn btn-outline-custom btn-block btn-lg fw-500" disabled=""><span>Submit</span></button>
+                                <button type="submit" id="btn-submit" disabled name="createEntreaty" class="btn btn-outline-custom btn-block btn-lg fw-500" disabled=""><span>Submit</span></button>
                             </div>
                         </form>
                     </div>
@@ -111,4 +112,16 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+    <script>
+        $("#termsCheckbox").on('change', function() {
+            var state = $(this).prop('checked');
+            if(state) {
+                $("#btn-submit").prop('disabled', false);
+            } else {
+                $("#btn-submit").prop('disabled', true);
+            }
+        })
+    </script>
 @endsection

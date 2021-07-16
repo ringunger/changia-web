@@ -16,10 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'client'], function () {
     Auth::routes();
 });
-Route::group(['name' => 'Admin', 'namespace' => 'App\Controller\Client', 'prefix' => 'client', 'middleware' => 'auth'], function () {
-
+Route::group(['name' => 'Client', 'namespace' => 'App\Controller\Client', 'prefix' => 'client', 'middleware' => 'auth'], function () {
+    Route::match(['get', 'post'],'/entreaties', [App\Http\Controllers\EntreatyController::class, 'mine'])->name('client_entreaties');
 });
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/create', [App\Http\Controllers\EntreatyController::class, 'create'])->name('create_entreaty');
+Route::match(['get', 'post'],'/create', [App\Http\Controllers\EntreatyController::class, 'create'])->name('create_entreaty');
 Route::get('/e/{uid}', [App\Http\Controllers\EntreatyController::class, 'view'])->name('entreaty_view');
+Route::get('/terms', [App\Http\Controllers\TermsPageController::class, 'index'])->name('terms');
+Route::get('/about', [App\Http\Controllers\TermsPageController::class, 'about'])->name('about');
+
+
+

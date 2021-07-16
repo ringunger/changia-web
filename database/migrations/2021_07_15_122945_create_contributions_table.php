@@ -15,7 +15,6 @@ class CreateContributionsTable extends Migration
     {
         Schema::create('contributions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entreaty_id')->references('id')->on('entreaties');
             $table->string("mcc_network");
             $table->string("mnc_network");
             $table->string("network_name");

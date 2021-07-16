@@ -17,6 +17,7 @@ class CreateEntreatiesTable extends Migration
             $table->id();
             $table->string('uid')->unique();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->string('reference_number')->unique();
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->text('description');
@@ -27,6 +28,7 @@ class CreateEntreatiesTable extends Migration
             $table->tinyInteger('is_public')->default(1);
             $table->tinyInteger('is_published')->default(0);
             $table->dateTime('published_date')->nullable();
+            $table->string('image')->nullable();
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'CANCELLED', 'COMPLETED'])->default('DRAFT');
             $table->timestamps();
         });

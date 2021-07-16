@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'callback'], function () {
+    Route::match(['get', 'post'],'/collection', [App\Http\Controllers\BeemCallbackController::class, 'collection'])->name('api_beem_collection');
+    Route::match(['get', 'post'],'/sms_delivery', [App\Http\Controllers\BeemCallbackController::class, 'sms_delivery'])->name('api_beem_sms_delivery');
+});
