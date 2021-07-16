@@ -100,20 +100,14 @@ class BeemBroker
         $endPoint = 'checkout';
         $url = $base_url . $endPoint;
         $data = [
-            'amount' => $amount,
-            'transaction_id' => Str::uuid(),
+            'amount' => "{$amount}",
+            'transaction_id' => Str::uuid()->toString(),
             'reference_number' => 'JAF-' . time(),
             'mobile' => $this::formatNumber($phoneNumber),
             'sendSource' => "false"
         ];
-        $x = 0;
-        foreach ($data as $key => $value) {
-            $url .= ($x > 0) ? '&' : '?';
-            $url .= $key .= '='.  (is_numeric($value)? $value : "'{$value}'");
-            $x ++;
-        }
-        dump($url);
-        $response = $this->get($url, []);
+
+        $response = $this->inlineGet($endPoint, $data, $this::$BASE_CHECKOUT_URL);
         dump(json_encode($data));
         dump($response);
         return $response;
@@ -170,10 +164,15 @@ class BeemBroker
     }
 
 
-    private function inlineGet($url, $data = [], $base_url = null) {
-        $url = $url . '?' . http_build_query($data);
-        dump($url);
-        return $this->get($url, $data, $base_url);
+    private function inlineGet($endpoint, $params = [], $base_url = null) {
+        $i = 0;
+        foreach ($params as $key => $value) {
+            $endpoint .= ($i === 0 ) ? '?' : '&';
+            $endpoint .= "{$key}=". (is_numeric($value) && false ? $value : '"' . $value. '"');
+            $i ++;
+        }
+        dump($endpoint);
+        return $this->get($endpoint, [], $base_url);
     }
 
     private function handleResponse($response) {
