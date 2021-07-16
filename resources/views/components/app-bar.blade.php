@@ -31,8 +31,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    @if (Route::has('login'))
-                        <a class="nav-link">{{\Illuminate\Support\Facades\Auth::user()->email}}</a>
+                    @if (Auth::check())
+                        <a class="nav-link">{{\Illuminate\Support\Facades\Auth::user()->email }}</a>
                     @else
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
