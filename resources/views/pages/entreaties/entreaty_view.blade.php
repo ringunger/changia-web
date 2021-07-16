@@ -39,14 +39,34 @@
                 </div>
 
                 <div class="card card-custom mt-3">
-                    <div class="card-header">Contributions</div>
+                    <div class="card-header">Contributions
+                        <span class="float-right" style="max-width: 200px;">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ $entreaty->getPaidPercentage() }}%" aria-valuenow="{{ $entreaty->getPaidPercentage() }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </span>
+                    </div>
                     <div class="card-body">
 
+                        <table class="table">
+                            <tr>
+                                <td>Target Amount:</td>
+                                <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getAmount(), 2) : 'No Target'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Collected Amount:</td>
+                                <td width="120" class="text-right">{{ number_format($entreaty->getPaidAmount(), 2) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Remaining Amount:</td>
+                                <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getRemainingAmount(), 2) : 'No Applicable' }}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
             </div>
-            <div class="d-none d-md-block col-md-4">
+            <div class="col-12 col-md-4">
 
                 <div class="card card-custom mt-2">
                     <div class="card-header">

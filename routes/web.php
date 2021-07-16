@@ -21,7 +21,7 @@ Route::group(['name' => 'Client', 'namespace' => 'App\Controller\Client', 'prefi
 });
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::match(['get', 'post'],'/create', [App\Http\Controllers\EntreatyController::class, 'create'])->name('create_entreaty');
+Route::match(['get', 'post'],'/create', [App\Http\Controllers\EntreatyController::class, 'create'])->name('create_entreaty')->middleware('auth');
 Route::get('/e/{uid}', [App\Http\Controllers\EntreatyController::class, 'view'])->name('entreaty_view');
 Route::get('/terms', [App\Http\Controllers\TermsPageController::class, 'index'])->name('terms');
 Route::get('/about', [App\Http\Controllers\TermsPageController::class, 'about'])->name('about');

@@ -76,8 +76,5 @@
         </div>
     </div>
 </div>
-    <div class="slash inverse" style="height: 60px;">
-        <div class="row boxed">
-        </div>
-    </div>
+
 @endsection

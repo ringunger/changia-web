@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -19,9 +20,14 @@ class Entreaty extends Model
     public function save(array $options = [])
     {
         $this->uid = $this->generateUniqueId();
-        $this->user_id = Auth::user()->id();
+        if(!$this->user_id) {
+            $this->user_id = Auth::user()->id;
+        }
+        if($this->deadline) {
+            $this->deadline = date('Y-m-d :23:59:59', strtotime($this->deadline));
+        }
         $this->reference_number = $this->generateReferenceNumber();
-        $this->image = 'https://picsum.photos/id/'. rand(1, 9999). '/300/200';
+        $this->image = 'https://picsum.photos/id/'. rand(1, 999). '/350/200';
         return parent::save($options);
     }
 
@@ -55,10 +61,16 @@ class Entreaty extends Model
         return $this->target_amount ?? 0;
     }
 
+    public function getPaidPercentage()
+    {
+        return ($this->getAmount()) > 0 ? ($this->getPaidAmount() / (100 / $this->getAmount())) : 0;
+    }
+
     public function getReferenceNumber()
     {
-        return 12345;
+        return $this->reference_number;
     }
+
 
     public function getImage()
     {
@@ -73,11 +85,14 @@ class Entreaty extends Model
     }
 
     public function generateReferenceNumber() {
+        $keyword = 'JAF-';
         $last = self::latest()->first();
         if($last) {
-            return 1 + ($last['reference_number'] ?? 1111);
+            $numeric_part = substr($last['reference_number'], strlen($keyword));
+            $new_number = (1 + ($numeric_part ?? 1111));
         } else {
-            return 1111;
+            $new_number =  1111;
         }
+        return $keyword .= $new_number;
     }
 }

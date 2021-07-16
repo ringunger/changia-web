@@ -36,6 +36,11 @@
 {{--                                </div>--}}
 {{--                            </div>--}}
                         </div>
+                        <div>
+                                @foreach($notifications as $notification)
+                                    <div class="alert alert-{{$notification['type']}}"><h6>{{$notification['title']}}</h6><p>{{$notification['text']}}</p></div>
+                                @endforeach
+                        </div>
                         <form  id="entreaty_form" method="post" enctype="multipart/form-data" autocomplete="off" class="row">
                             @csrf
                             <div class="mb-3 col-12">
@@ -65,8 +70,8 @@
                             <div class="mb-3 col-6">
                                 <label for="name" class="small mb-1">Target amount <i>(optional)</i></label>
                                 <div class="input-group">
-                                    <input id="name" type="number" min="0" placeholder="Targeted amount"   class="form-control number-only">
-                                    <select class="input-group-append form-control" style="max-width: 80px;">
+                                    <input id="target_amout" name="target_amount" type="number" min="0" placeholder="Targeted amount"   class="form-control number-only">
+                                    <select name="currency_id" id="currency_id" class="input-group-append form-control" style="max-width: 80px;">
                                         @foreach($currencies as $currency)
                                         <option value="{{$currency->id}}">{{$currency->symbol}}</option>
                                         @endforeach
@@ -91,7 +96,9 @@
 
 
                             <div class="mb-3 col-12">
-                                <div id="card-errors" data-cy="cardErrors" class="small text-danger"></div></div>
+                                <input type="checkbox" id="is_published" name="is_published" value="1" /> Publish
+                                <div id="card-errors" class="small text-danger"></div>
+                            </div>
                             <div class="mb-3">
                                 <div class="form-check">
                                     <input id="termsCheckbox"  type="checkbox" formcontrolname="termsAndConditions" class="form-check-input ">

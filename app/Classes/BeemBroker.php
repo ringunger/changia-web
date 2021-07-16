@@ -98,17 +98,15 @@ class BeemBroker
     {
         $base_url = $base_url ?? $this::$BASE_CHECKOUT_URL;
         $endPoint = 'checkout';
-        $url = $base_url . $endPoint;
         $data = [
-            'amount' => "{$amount}",
+            'amount' => $amount,
             'transaction_id' => Str::uuid()->toString(),
-            'reference_number' => 'JAF-' . time(),
+            'reference_number' => 'JAF-12345',
+            'sendSource' => 'true',
             'mobile' => $this::formatNumber($phoneNumber),
-            'sendSource' => "false"
         ];
 
-        $response = $this->inlineGet($endPoint, $data, $this::$BASE_CHECKOUT_URL);
-        dump(json_encode($data));
+        $response = $this->get($endPoint, $data, $base_url);
         dump($response);
         return $response;
 
@@ -123,14 +121,16 @@ class BeemBroker
     private function get($endpoint, $params = [], $base_url = null) {
         $base_url = $base_url ?? $this::$BASE_SMS_URL;
         $url = $base_url . $endpoint;
+        dump($url);
         $response = Http::withHeaders([
             'Authorization' => $this->auth_string,
             'Content-type' => 'application/json',
             'Accept' => 'application/json'
         ])->get($url,  $params)->onError(static function($e) {
-            Log::error('GET error'. (string) $e);
             dump($e);
+            dump($e->body());
         });
+        dump($response->toPsrResponse());
         if($response->ok()){
             return $response->json();
         } else {
@@ -171,7 +171,6 @@ class BeemBroker
             $endpoint .= "{$key}=". (is_numeric($value) && false ? $value : '"' . $value. '"');
             $i ++;
         }
-        dump($endpoint);
         return $this->get($endpoint, [], $base_url);
     }
 

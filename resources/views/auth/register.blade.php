@@ -79,8 +79,4 @@
         </div>
     </div>
 </div>
-<div class="slash inverse mt-4" style="height: 60px;">
-    <div class="row boxed">
-    </div>
-</div>
 @endsection

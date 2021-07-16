@@ -18,11 +18,8 @@ class EntreatySeeder extends Seeder
     {
         $faker = Factory::create();
 
-        DB::table('entreaties')->insert([
-            [
+        $data = [
                 'user_id' => 1,
-                'reference_number' => '1111',
-                'uid' => Str::random(),
                 'title' => 'Contribution for Young Africans Soccer Club',
                 'subtitle' =>'Money to pay players for the upcoming league',
                 'description' => $faker->text(),
@@ -33,7 +30,8 @@ class EntreatySeeder extends Seeder
                 'is_public' => 1,
                 'is_published' => 1,
                 'published_date' => date('Y-m-d H:i:s'),
-            ],
-        ]);
+            ];
+        $e = new \App\Models\Entreaty($data);
+        $e->save();
     }
 }

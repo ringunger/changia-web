@@ -20,14 +20,27 @@ class EntreatyController extends Controller
 
     public function create(Request $request)
     {
+        $notifications = [];
         if($request->isMethod('post')) {
             if($request->has('createEntreaty')){
                 $entreaty = new Entreaty($request->all());
-                dump($entreaty);
+                if($entreaty->save()){
+                    $notification = ['type' => 'success', 'title' => 'Entreaty Created', 'text' => 'Your entreaty was created successfully'];
+                } else {
+                    $notification = ['type' => 'danger', 'title' => 'Failed!', 'text' => 'Could not create entreaty. Please try again'];
+                    // TODO mirror the input values back
+                }
+                $notification[] = $notification;
+                $data = [
+                    'currencies' => Currency::all(),
+                    'notifications' => $notifications
+                ];
+                return redirect()->back()->with($data);
             }
         }
         $data = [
-            'currencies' => Currency::all()
+            'currencies' => Currency::all(),
+            'notifications' => $notifications
         ];
         return view('pages.entreaties.entreaty_create')->with($data);
     }

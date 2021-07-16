@@ -30,14 +30,19 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
+
                     @if (Auth::check())
+                    <li class="nav-item">
                         <a class="nav-link">{{\Illuminate\Support\Facades\Auth::user()->email }}</a>
+                    </li>
                     @else
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
                     @endif
-                </li>
             </ul>
         </div>
     </div>
