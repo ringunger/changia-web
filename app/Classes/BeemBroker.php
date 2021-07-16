@@ -104,11 +104,16 @@ class BeemBroker
             'transaction_id' => Str::uuid(),
             'reference_number' => 'JAF-' . time(),
             'mobile' => $this::formatNumber($phoneNumber),
-            'sendSource' => false
+            'sendSource' => "false"
         ];
-
+        $x = 0;
+        foreach ($data as $key => $value) {
+            $url .= ($x > 0) ? '&' : '?';
+            $url .= $key .= '='.  (is_numeric($value)? $value : "'{$value}'");
+            $x ++;
+        }
         dump($url);
-        $response = $this->inlineGet($url, $data);
+        $response = $this->get($url, []);
         dump(json_encode($data));
         dump($response);
         return $response;
