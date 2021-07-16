@@ -22,6 +22,8 @@
                             dump($x->checkOut('0769588442', '7000'));
 
                         ?>
+
+                        <x-beem-checkout></x-beem-checkout>
                     </div>
                 </div>
             </div>

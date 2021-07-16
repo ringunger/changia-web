@@ -9,6 +9,7 @@
 {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel='stylesheet' href='https://checkout.beem.africa/dist/0.1_alpha/bpay.min.css'/>
 </head>
     <body class="antialiased">
         <x-app-bar></x-app-bar>

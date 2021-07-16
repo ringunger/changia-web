@@ -108,7 +108,7 @@ class BeemBroker
         ];
 
         dump($url);
-        $response = $this->get($url, $data);
+        $response = $this->inlineGet($url, $data);
         dump(json_encode($data));
         dump($response);
         return $response;
@@ -162,6 +162,13 @@ class BeemBroker
         } else {
             return false;
         }
+    }
+
+
+    private function inlineGet($url, $data = [], $base_url = null) {
+        $url = $url . '?' . http_build_query($data);
+        dump($url);
+        return $this->get($url, $data, $base_url);
     }
 
     private function handleResponse($response) {
