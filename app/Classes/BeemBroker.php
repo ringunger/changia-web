@@ -112,6 +112,25 @@ class BeemBroker
 
     }
 
+    public function disburse($amount, $wallet_number, $wallet_code, $source = null){
+        $source = $source ?? 'f09dc0d3';
+        $data = [
+            "amount" => $amount,
+            "client_reference_id" => time(),
+            "source" => [
+                "account_no" => $source,
+                "currency" => "TZS"
+            ],
+            "destination"=> [
+                "mobile" => [
+                    "wallet_number" => $wallet_number,
+                    "wallet_code" => $wallet_code,
+                    "currency" => "TZS"
+                ]
+            ]
+        ];
+    }
+
     /**
      * Send a GET request to the API
      * @param $endpoint

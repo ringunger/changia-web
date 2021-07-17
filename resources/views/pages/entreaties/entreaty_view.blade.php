@@ -19,7 +19,9 @@
                         <div class="card-body">
                             <div class="row .entreaty-detail">
                                 <div class="col-12">
-                                    <h5>{{$entreaty->title ?? ''}}</h5>
+                                    <h5>{{$entreaty->title ?? ''}}
+                                    <span class="float-right badge badge-secondary" id="state-status">{{ $entreaty->status }}</span>
+                                    </h5>
                                 </div>
                                 <div class="col-md-4">
                                     <img class="img-fluid" src="{{$entreaty->getImage()}}" />
@@ -48,15 +50,15 @@
                             <table class="table">
                                 <tr>
                                     <td>Target Amount:</td>
-                                    <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getAmount(), 2) : 'No Target'}}</td>
+                                    <td width="120" id="state-amount" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getAmount(), 2) : 'No Target'}}</td>
                                 </tr>
                                 <tr>
                                     <td>Collected Amount:</td>
-                                    <td width="120" class="text-right">{{ number_format($entreaty->getPaidAmount(), 2) }}</td>
+                                    <td width="120" id="state-paid" class="text-right">{{ number_format($entreaty->getPaidAmount(), 2) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Remaining Amount:</td>
-                                    <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getRemainingAmount(), 2) : 'No Applicable' }}</td>
+                                    <td width="120" id="state-remaining" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getRemainingAmount(), 2) : 'No Applicable' }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -70,6 +72,8 @@
                             Contribution Method
                         </div>
                         <div class="card-body">
+
+                            @if($entreaty->status !== 'COMPLETED')
                             <div id="">
                                 <ol>
                                     <li>Dial *150*00#</li>
@@ -84,6 +88,10 @@
                             <div class="mt-2 text-center">
                                 <button onclick="contribute()" class="btn btn-custom btn-lg btn-bock">Contribute Online</button>
                             </div>
+                            @else
+                                <div class="alert alert-success">Completed</div>
+                            @endif
+
                             <div class=" p-3" style="display:none" id="contribute-form">
                                 <hr />
                                 <form method="post">
@@ -131,6 +139,9 @@
 
 @section('script')
     <script>
+        var chart_paid = <?php echo $entreaty->getPaidAmount() ?>;
+        var chart_remaining  = <?php echo $entreaty->getRemainingAmount() ?>;
+        var state = `<?php echo (string) json_encode($entreaty->getStateData(), true); ?>`;
         var e_reference = "<?php echo $entreaty->reference_number ; ?>";
         var e_transaction = "<?php echo \Illuminate\Support\Str::uuid()->toString(); ?>"
 
@@ -177,12 +188,12 @@
 
                         {
                             name: 'Paid',
-                            y: <?php echo $entreaty->getPaidAmount() ?>,
+                            y: chart_paid,
                             sliced: true,
                             selected: true
                         },{
                             name: 'Remaining',
-                            y: <?php echo $entreaty->getRemainingAmount() ?>,
+                            y: chart_remaining,
                             sliced: true,
                             selected: true
                         },
@@ -215,6 +226,41 @@
             }
         }
 
+        function refreshState() {
+            $.ajax({
+                url: "/e_state/<?php echo $entreaty->id; ?>",
+                type: 'POST',
+                data: {_token: "<?php echo csrf_token(); ?>" }
+            }).done(function(res) {
 
+                if(JSON.stringify(res) == JSON.stringify(state)){
+                    console.log('The same');
+                } else {
+                    data = res;
+
+                    $("#state-amount").html(money_format(data.amount));
+                    $("#state-paid").html(money_format(data.paid));
+                    $("#state-remaining").html(money_format(data.remaining));
+                    $("#state-status").html(data.status);
+
+                    chart_paid = data.paid;
+                    cahrt_remaining = data.remaining;
+                    initializeChart();
+
+                    state = res;
+                }
+            });
+            setTimeout(function() {
+                refreshState();
+            }, 5000);
+        }
+        refreshState();
+
+        function money_format(value){
+            return parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');;
+        }
     </script>
 @endsection
+
+
+

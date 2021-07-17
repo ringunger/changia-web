@@ -63,4 +63,11 @@ class EntreatyController extends Controller
         ];
         return view('pages.entreaties.entreaties_list')->with($data);
     }
+
+    public function state(Request $request, $id)
+    {
+        $entreaty = Entreaty::find($id);
+        $data = $entreaty->getStateData();
+        return response()->json($data);
+    }
 }

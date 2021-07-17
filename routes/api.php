@@ -20,5 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'callback'], function () {
     Route::match(['get', 'post'],'/collection', [App\Http\Controllers\BeemCallbackController::class, 'collection'])->name('api_beem_collection');
+    Route::match(['get', 'post'],'/checkout', [App\Http\Controllers\BeemCallbackController::class, 'checkout'])->name('api_beem_checkout');
     Route::match(['get', 'post'],'/sms_delivery', [App\Http\Controllers\BeemCallbackController::class, 'sms_delivery'])->name('api_beem_sms_delivery');
 });

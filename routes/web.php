@@ -25,6 +25,7 @@ Route::match(['get', 'post'],'/create', [App\Http\Controllers\EntreatyController
 Route::get('/e/{uid}', [App\Http\Controllers\EntreatyController::class, 'view'])->name('entreaty_view');
 Route::get('/terms', [App\Http\Controllers\TermsPageController::class, 'index'])->name('terms');
 Route::get('/about', [App\Http\Controllers\TermsPageController::class, 'about'])->name('about');
+Route::post('/e_state/{id}', [App\Http\Controllers\EntreatyController::class, 'state'])->name('entreaty_state');
 
 
 

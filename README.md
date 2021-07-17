@@ -14,3 +14,25 @@ This is a platform that will enable Organizations, Communities, Companies, Gover
 * Whenever individuals contribute, the system will be keeping track of the collections: Target, Collected and Remaining
 * If a target was specified (or if deadline reached) the contribution window will be closed and (if configured) the contributed 
 money will be disbursed to the client's wallet.
+
+## APIs Used
+* SMS 
+* PAYMENT COLLECTION
+* PAYMENT CHECKOUT
+* DISBURSEMENT
+
+## Deployment Process
+ The App is developed using Laravel 8. Demployment is simply as follows:
+* Clone this repo
+* Enter your configurations in the ```.env``` file
+* Run ```composer install```
+* Run ```npm install```
+* Run ```php artisan migrate --seed```
+* Run ```npm run prod```
+
+
+## Demo
+Live demo is available at [https://changia.ringlesoft.com](changia.ringlesoft.com)
+
+
+By David J. Ringo (Ringle)

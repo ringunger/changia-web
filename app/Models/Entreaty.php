@@ -21,17 +21,49 @@ class Entreaty extends Model
         return self::where('is_public', 1)->paginate(50);
     }
 
+    public static function processContribution($reference_number) {
+        $entreaty = self::where('reference_number', $reference_number)->first();
+        if($entreaty){
+            if($entreaty->getRemainingAmount() <= 0) {
+               $entreaty->makeCompleted();
+            }
+        } else {
+
+        }
+    }
+
+    public function makeCompleted()
+    {
+        $this->status = 'COMPLETED';
+        return $this->save();
+    }
+
+    public function getStateData() {
+        $data = [
+          'amount' => $this->getAmount(),
+            'paid' => $this->getPaidAmount(),
+          'remaining' => $this->getRemainingAmount(),
+            'status' => $this->status
+        ];
+        return $data;
+    }
+
     public function save(array $options = [])
     {
-        $this->uid = $this->generateUniqueId();
-        if(!$this->user_id) {
-            $this->user_id = Auth::user()->id;
+        if (!$this->id) {
+            $this->uid = $this->generateUniqueId();
+            if (!$this->user_id) {
+                $this->user_id = Auth::user()->id;
+            }
+            if ($this->deadline) {
+                $this->deadline = date('Y-m-d :23:59:59', strtotime($this->deadline));
+            }
+            if ($this->is_published) {
+                $this->status = 'PUBLISHED';
+            }
+            $this->reference_number = $this->generateReferenceNumber();
+            $this->image = 'https://picsum.photos/id/' . rand(1, 999) . '/350/200';
         }
-        if($this->deadline) {
-            $this->deadline = date('Y-m-d :23:59:59', strtotime($this->deadline));
-        }
-        $this->reference_number = $this->generateReferenceNumber();
-        $this->image = 'https://picsum.photos/id/'. rand(1, 999). '/350/200';
         return parent::save($options);
     }
 
@@ -51,7 +83,8 @@ class Entreaty extends Model
 
     public function getRemainingAmount()
     {
-       return  $this->getAmount() - $this->getPaidAmount();
+       $remaining =  $this->getAmount() - $this->getPaidAmount();
+       return $remaining > 0 ? $remaining : 0;
     }
 
     public function getPaidAmount() {
