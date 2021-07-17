@@ -47,6 +47,9 @@ class EntreatyController extends Controller
 
     public function view(Request $request, $uid) {
         $entreaty = Entreaty::where('uid', $uid)->first();
+        if(!$entreaty){
+            return view('pages.404');
+        }
         $data = [
             'entreaty' => $entreaty
         ];
@@ -58,6 +61,6 @@ class EntreatyController extends Controller
         $data = [
             'entreaties' => Entreaty::forUser(Auth::user()->id)
         ];
-        return view('pages.entreaties.entreaties_list');
+        return view('pages.entreaties.entreaties_list')->with($data);
     }
 }

@@ -113,3 +113,18 @@ footer {
 
     }
 }
+
+.thin-line {
+    border-bottom: 1px solid #f0f0f0;
+}
+.entreaty-detail {
+    &:hover{
+        background-color: rgba(100,100,100, 0.5);
+    }
+}
+
+.pagination {
+    svg {
+        max-width: 10px !important;
+    }
+}

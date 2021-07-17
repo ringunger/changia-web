@@ -21,9 +21,6 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <script>
         $(".datepicker").datepicker();
-        $(function() {
-           InitializeBeem();
-        });
     </script>
 
     @yield('script')

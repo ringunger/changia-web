@@ -62,14 +62,14 @@
 
             @foreach($entreaties as $entreaty)
                 <div class="row mt-3">
-                    <div class="col-md-5">
+                    <div class="col-md-5 col-lg-4 col-xl-3">
                         <a href="#">
                             <img class="img-fluid rounded mb-3 mb-md-0" src="{{ asset($entreaty->getImage()) }}" alt="">
                         </a>
                     </div>
-                    <div class="col-md-7" >
+                    <div class="col-md-7 col-lg-8 col-xl-9" >
                         <h3>
-                            <span  style="margin-right: 120px;">Entreaty Contributing for Yong Africans Soccer Club</span>
+                            <span  style="margin-right: 120px;">{{$entreaty->title}}</span>
                             <span class="float-right dates">
                         {{ \Carbon\Carbon::createFromDate(date('Y-m-d'))->format('Y, d M') }}
                     </span>
@@ -77,15 +77,24 @@
                         <p>{{ $entreaty->description }}</p>
                         <div class="w-100">
                             <a class="btn btn-outline-custom float-right" href="{{ route('entreaty_view', ['uid' => $entreaty->uid]) }}">View Entreaty</a>
-                            <div class="pt-2">
-                                <span class="stat-box"><i class="la la-users"></i>&nbsp;| 200</span>
+                            <div class="pt-2 d-none d-lg-block">
+                                <span title="Number of Contributions" data-toggle="tooltip" class="stat-box px-2"><i class="la la-users"></i>&nbsp;| {{ count($entreaty->contributions)}}</span>
+                                <span title="Amount Targeted" data-toggle="tooltip" class="stat-box px-2"><i class="la la-money-check"></i>&nbsp;| {{ ($entreaty->getAmount() > 0) ? number_format($entreaty->getAmount()) ." ". $entreaty->currency->symbol : 'N/A' }}</span>
+                                <span title="Amount contributed" data-toggle="tooltip" class="stat-box px-2"><i class="la la-check"></i>&nbsp;| {{ number_format($entreaty->getPaidAmount()) }} {{$entreaty->currency->symbol}}</span>
+                                <span title="Amount Remaining" data-toggle="tooltip" class="stat-box px-2"><i class="la la-clock-o"></i>&nbsp;| {{ number_format($entreaty->getRemainingAmount()) }} {{$entreaty->currency->symbol}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr>
             @endforeach
-
+{{--                <div class="d-flex justify-content-center">--}}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {!! $entreaties->links() !!}
+                        </ul>
+                    </nav>
+{{--                </div>--}}
         </div>
 
     </div>

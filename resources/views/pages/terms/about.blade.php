@@ -24,7 +24,17 @@
                         <h4 class="mt-3">How It Works</h4>
                         <p>
                         <ul>
+                            <li>A person (client) creates an account within the platform</li>
 
+                            <li>The client creates a new need for contribution (Entreaty) and publishes it to the public</li>
+
+                            (If the entreaty is private, the client should send the link to target individuals)
+
+                            <li>Individuals interested in contributing will visit the site and see details of the need/entreaty and if convinced, they will have two options for contribution: (Online or through USSD menu)</li>
+
+                            <li>Whenever individuals contribute, the system will be keeping track of the collections: Target, Collected and Remaining</li>
+
+                            <li>If a target was specified (or if deadline reached) the contribution window will be closed and (if configured) the contributed money will be disbursed to the client's wallet.</li>
                         </ul>
                         </p>
                     </div>

@@ -18,7 +18,12 @@
             </div>
             <div class="col-12 col-md-4">
                 <h3>Links</h3>
+                <a class="text-white" href="https://github.com/ringunger/changia-web.git"><i class="la la-github">&nbsp;</i> Github Repo</a>
             </div>
         </div>
+    </div>
+    <hr />
+    <div class="boxed">
+
     </div>
 </footer>

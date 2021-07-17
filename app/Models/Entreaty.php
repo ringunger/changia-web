@@ -17,6 +17,10 @@ class Entreaty extends Model
         return Entreaty::where('user_id', $id)->get();
     }
 
+    public static function allPublic() {
+        return self::where('is_public', 1)->paginate(50);
+    }
+
     public function save(array $options = [])
     {
         $this->uid = $this->generateUniqueId();

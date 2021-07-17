@@ -2,110 +2,137 @@
 
 @section('content')
     <style>
-        .thin-line {
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .entreaty-detail {
-        }
+
     </style>
-    <div class="slash pt-2" style="height: 50px;">
-        <div class="row boxed ">
-            <h5>{{$entreaty->title}}</h5>
+    @if(!is_null($entreaty))
+        <div class="slash pt-2" style="height: 50px;">
+            <div class="row boxed ">
+                <h5>{{$entreaty->title ?? ''}}</h5>
+            </div>
         </div>
-    </div>
 
 
-    <div class="container pt-5">
-        <div class="row">
-            <div class="col-12 col-md-8">
-                <div class="card card-custom">
-                    <div class="card-body">
-                        <div class="row .entreaty-detail">
-                            <div class="col-12">
-                                <h5>{{$entreaty->title}}</h5>
-                            </div>
-                            <div class="col-md-4">
-                                <img class="img-fluid" src="{{$entreaty->getImage()}}" />
-                            </div>
-                            <div class="col-md-8">
-                                <p>{{$entreaty->description}}</p>
-                            </div>
-                            <div class="col-12 mt-3">
-                                <h6 class="thin-line">Details</h6>
-                                <p>{{ $entreaty->long_description }}</p>
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <div class="row .entreaty-detail">
+                                <div class="col-12">
+                                    <h5>{{$entreaty->title ?? ''}}</h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="img-fluid" src="{{$entreaty->getImage()}}" />
+                                </div>
+                                <div class="col-md-8">
+                                    <p>{{$entreaty->description ?? ''}}</p>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <h6 class="thin-line">Details</h6>
+                                    <p>{{ $entreaty->long_description ?? '' }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card card-custom mt-3">
-                    <div class="card-header">Contributions
-                        <span class="float-right" style="max-width: 200px;">
+                    <div class="card card-custom mt-3">
+                        <div class="card-header">Contributions
+                            <span class="float-right" style="max-width: 200px;">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ $entreaty->getPaidPercentage() }}%" aria-valuenow="{{ $entreaty->getPaidPercentage() }}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </span>
-                    </div>
-                    <div class="card-body">
-
-                        <table class="table">
-                            <tr>
-                                <td>Target Amount:</td>
-                                <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getAmount(), 2) : 'No Target'}}</td>
-                            </tr>
-                            <tr>
-                                <td>Collected Amount:</td>
-                                <td width="120" class="text-right">{{ number_format($entreaty->getPaidAmount(), 2) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Remaining Amount:</td>
-                                <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getRemainingAmount(), 2) : 'No Applicable' }}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-12 col-md-4">
-
-                <div class="card card-custom mt-2">
-                    <div class="card-header">
-                        Contribution Method
-                    </div>
-                    <div class="card-body">
-                        <div id="">
-                            <ol>
-                                <li>Dial *150*00#</li>
-                                <li>Select Pay Bill</li>
-                                <li>Select Enter Business Number</li>
-                                <li>Enter Business Number: <strong>222444</strong></li>
-                                <li>Enter Reference of payment: <strong>{{$entreaty->getReferenceNumber()}}</strong></li>
-                                <li>Enter Amount</li>
-                                <li>Enter Your Pin</li>
-                            </ol>
                         </div>
-                        <div class="mt-2 text-center">
-                            <button onclick="contribute()" class="btn btn-custom btn-lg btn-bock">Contribute Online</button>
+                        <div class="card-body">
+
+                            <table class="table">
+                                <tr>
+                                    <td>Target Amount:</td>
+                                    <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getAmount(), 2) : 'No Target'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Collected Amount:</td>
+                                    <td width="120" class="text-right">{{ number_format($entreaty->getPaidAmount(), 2) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Remaining Amount:</td>
+                                    <td width="120" class="text-right">{{ $entreaty->getAmount() > 0 ? number_format($entreaty->getRemainingAmount(), 2) : 'No Applicable' }}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                </div>
 
-                <div class="card card-custom mt-2">
-                    <div class="card-body">
-                        <div id="pie-chart"></div>
+                </div>
+                <div class="col-12 col-md-4">
+
+                    <div class="card card-custom mt-2">
+                        <div class="card-header">
+                            Contribution Method
+                        </div>
+                        <div class="card-body">
+                            <div id="">
+                                <ol>
+                                    <li>Dial *150*00#</li>
+                                    <li>Select Pay Bill</li>
+                                    <li>Select Enter Business Number</li>
+                                    <li>Enter Business Number: <strong>222444</strong></li>
+                                    <li>Enter Reference of payment: <strong>{{$entreaty->getReferenceNumber()}}</strong></li>
+                                    <li>Enter Amount</li>
+                                    <li>Enter Your Pin</li>
+                                </ol>
+                            </div>
+                            <div class="mt-2 text-center">
+                                <button onclick="contribute()" class="btn btn-custom btn-lg btn-bock">Contribute Online</button>
+                            </div>
+                            <div class=" p-3" style="display:none" id="contribute-form">
+                                <hr />
+                                <form method="post">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="text" class="form-control" id="input-phone" placeholder="255#########" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Amount</label>
+                                        <input type="number" class="form-control" id="input-amount" value="0" name="amount" />
+                                    </div>
+                                    <div class="">
+                                        <button type="button" class="btn btn-custom" onclick="initContribution()">Contribute</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="beamDiv" style="display:none">
+                                <x-beem-checkout></x-beem-checkout>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
+                    <div class="card card-custom mt-2">
+                        <div class="card-body">
+                            <div id="pie-chart"></div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </div>
 
-
-    </div>
+    @else
+        <div class="jumbotron">
+            <h5>Record not found</h5>
+            <p>
+                Sorry! This record doesn't exist anymore. It might have been deleted!
+            </p>
+        </div>
+    @endif
 
 @endsection
 
 @section('script')
     <script>
+
+
         $(function() {
             initializeChart();
         });
@@ -166,6 +193,22 @@
 
         function contribute() {
             console.log('Contribute...');
+            $("#contribute-form").slideToggle();
         }
+
+
+        function initContribution() {
+            var phone = $("#input-phone").val();
+            var amount = $("#input-amount").val();
+            if(phone && amount){
+                InitializeBeem();
+                $("#beamDiv").show();
+                $("contribute-form").slideToggle();
+            } else {
+
+            }
+        }
+
+
     </script>
 @endsection

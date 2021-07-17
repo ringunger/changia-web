@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = [
-            'entreaties' => Entreaty::all()
+            'entreaties' => Entreaty::allPublic()
         ];
         return view('home')->with($data);
     }
