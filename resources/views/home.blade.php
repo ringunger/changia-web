@@ -25,7 +25,7 @@
         <div class="row boxed">
             <div class="col-12 col-sm-8 col-xl-9">
                 <h6 class="text-black-50">ARE YOU STUCK SOMEWHERE?</h6>
-                <h3>Solve Big Challenges by Power of the People</h3>
+                <h3 class="d-none d-sm-block">Solve Big Challenges by Power of the People</h3>
                 <h4 class=""><i>Transparent, Trustable, Reliable</i></h4>
                 <p></p>
             </div>

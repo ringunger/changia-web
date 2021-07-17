@@ -64,6 +64,20 @@
                         </div>
                     </div>
 
+                    <div class="card card-custom mt-3">
+                        <div class="card-header">Contributions <span class="pull-right"><button class="btn btn-sm btn-custom float-right" onclick="$('#pay-list').slideToggle();"><i class="la la-chevron-down"></i> Contributors</button></span> </div>
+                        <div id="pay-list"  class="card-body table-responsive-sm" style="max-height: 200px; display: none;">
+                            <table class="table table-sm">
+                                <tr><th width="30"></th><th>Number</th><th width="100">Amount</th> </tr>
+                                @forelse ($entreaty->contributions as $contribution)
+                                    <tr><td>{{$loop->index + 1}}</td><td>{{$contribution['subscriber_msisdn']}}</td><td class="text-right">{{ number_format($contribution->amount_collected) }}</td></tr>
+                                @empty
+
+                                @endforelse
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-12 col-md-4">
 
