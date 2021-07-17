@@ -131,7 +131,8 @@
 
 @section('script')
     <script>
-
+        var e_reference = "<?php echo $entreaty->reference_number ; ?>";
+        var e_transaction = "<?php echo \Illuminate\Support\Str::uuid()->toString(); ?>"
 
         $(function() {
             initializeChart();
@@ -201,6 +202,11 @@
             var phone = $("#input-phone").val();
             var amount = $("#input-amount").val();
             if(phone && amount){
+                $("#beem-button").attr('data-price', amount);
+                $("#beem-button").attr('data-reference', e_reference);
+                $("#beem-button").attr('data-mobile', phone);
+                $("#beem-button").attr('data-transaction', e_transaction);
+
                 InitializeBeem();
                 $("#beamDiv").show();
                 $("contribute-form").slideToggle();

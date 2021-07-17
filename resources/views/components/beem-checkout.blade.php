@@ -1,5 +1,5 @@
 <div>
-    <div id='beem-button'
+    <div id='beem-button' class="btn btn-block btn-custom"
          data-price='2000'
          data-reference='SAMPLE-12345'
          data-mobile='255701000000'
