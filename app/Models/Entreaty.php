@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\BeemBroker;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Illuminate\Support\Str;
 class Entreaty extends Model
 {
     use HasFactory;
-    public $fillable = ['uid', 'reference_number', 'title', 'subtitle', 'description', 'long_description', 'target_amount', 'currency_id', 'deadline', 'is_public', 'is_published', 'published_date', 'image', 'status'];
+    public $fillable = ['uid', 'reference_number', 'title', 'subtitle', 'description', 'long_description', 'target_amount', 'currency_id', 'deadline', 'is_public', 'is_published', 'published_date', 'image', 'status', 'wallet_number', 'wallet_code'];
 
     public static function forUser($id) {
         return Entreaty::where('user_id', $id)->get();
@@ -24,7 +25,7 @@ class Entreaty extends Model
     public static function processContribution($reference_number) {
         $entreaty = self::where('reference_number', $reference_number)->first();
         if($entreaty){
-            if($entreaty->getRemainingAmount() <= 0) {
+            if($entreaty->getRemainingAmount() <= 0 && $entreaty->getAmount() > 0) {
                $entreaty->makeCompleted();
             }
         } else {
@@ -34,8 +35,14 @@ class Entreaty extends Model
 
     public function makeCompleted()
     {
-        $this->status = 'COMPLETED';
-        return $this->save();
+        if($this->status != 'COMPLETED') {
+            if($this->wallet_number && $this->wallet_code){
+                $beem = new BeemBroker();
+                $beem->disburse($this->getPaidAmount(), $this->wallet_number, $this->wallet_code);
+            }
+            $this->status = 'COMPLETED';
+            return $this->save();
+        }
     }
 
     public function getStateData() {

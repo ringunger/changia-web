@@ -29,6 +29,8 @@ class CreateEntreatiesTable extends Migration
             $table->tinyInteger('is_published')->default(0);
             $table->dateTime('published_date')->nullable();
             $table->string('image')->nullable();
+            $table->string('wallet_number')->nullable();
+            $table->string('wallet_code')->nullable();
             $table->enum('status', ['DRAFT', 'PUBLISHED', 'CANCELLED', 'COMPLETED'])->default('DRAFT');
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\BeemBroker;
 use App\Models\Collection;
 use App\Models\Contribution;
 use App\Models\Entreaty;
@@ -21,6 +22,10 @@ class BeemCallbackController extends Controller
         $contribution = new Contribution($request->all());
         if($request->has('transaction_id')){
             if($contribution->save()){
+                if($contribution->subscriber_msisdn) {
+                    $beem = new BeemBroker();
+                    $beem->sendSms($contribution->subscriber_msisdn, 'Thanks for contributing through changia.ringlesoft.com');
+                }
                 Entreaty::processContribution($contribution->reference_number);
                 $response_data = ["transaction_id" => $contribution->transaction_id, "successful" => true];
             return response()->json($response_data, 200);
@@ -50,8 +55,11 @@ class BeemCallbackController extends Controller
             ];
 
             $contribution = new Contribution($data);
-            print_r($data);
             if($contribution->save()){
+                if($contribution->subscriber_msisdn) {
+                    $beem = new BeemBroker();
+                    $beem->sendSms($contribution->subscriber_msisdn, 'Thanks for contributing through changia.ringlesoft.com');
+                }
                 Entreaty::processContribution($data['reference_number']);
                 $response_data = ["transaction_id" => $contribution->transaction_id, "successful" => true];
             return response()->json($response_data, 200);

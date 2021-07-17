@@ -46,25 +46,25 @@
                             <div class="mb-3 col-12">
                                 <label for="title" class="small mb-1">Title of the Entreaty</label>
                                 <input id="title" name="title" type="text" placeholder="Title of the entreaty" required=""  class="form-control">
-                                <div class="invalid-feedback">Name required</div>
+                                <div class="invalid-feedback">Title required</div>
                             </div>
 
                             <div class="mb-3 col-12">
                                 <label for="subtitle" class="small mb-1">Subtitle</label>
                                 <input id="subtitle" name="subtitle" type="text" placeholder="Subtitle" required=""  class="form-control">
-                                <div class="invalid-feedback">Name required</div>
+                                <div class="invalid-feedback">SUbtitle required</div>
                             </div>
 
                             <div class="mb-3 col-12">
                                 <label for="description" class="small mb-1">Description</label>
                                 <textarea id="description" name="description" placeholder="Description of purpose the Entreaty" required=""  class="form-control"></textarea>
-                                <div class="invalid-feedback">Name required</div>
+                                <div class="invalid-feedback">Description required</div>
                             </div>
 
                             <div class="mb-3 col-12">
                                 <label for="long_description" class="small mb-1">Detailed Description</label>
                                 <textarea rows="4" id="long_description" name="long_description" type="text" placeholder="A long description about the entreaty" required=""  class="form-control"></textarea>
-                                <div class="invalid-feedback">Name required</div>
+                                <div class="invalid-feedback">Detailed Description required</div>
                             </div>
 
                             <div class="mb-3 col-6">
@@ -76,13 +76,13 @@
                                         <option value="{{$currency->id}}">{{$currency->symbol}}</option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Name required</div>
+                                    <div class="invalid-feedback">Target Amount required</div>
                                 </div>
                             </div>
                             <div class="mb-3 col-6">
                                 <label for="deadline" class="small mb-1">Deadline Date  <i>(optional)</i></label>
                                 <input id="deadline" name="deadline" type="text" placeholder="Deadline of the need"   class="form-control datepicker">
-                                <div class="invalid-feedback">Name required</div>
+                                <div class="invalid-feedback">Deadline date required</div>
                             </div>
                             <div class="mb-3 col-12">
                                 <label for="is_public" class="small mb-1">Publicity</label>
@@ -90,13 +90,24 @@
                                     <option value="1">Public (Everyone Sees)</option>
                                     <option value="0">Private (Only people you share link with)</option>
                                 </select>
-                                <div class="invalid-feedback">Name required</div>
+                            </div>
+
+                            <hr />
+                            <i>If you want the money to be transfered to your wallet on completion</i>
+                            <div class="mb-3 col-6">
+                                <label for="deadline" class="small mb-1">Wallet Number  <i>(optional)</i></label>
+                                <input id="wallet_number" name="wallet_number" type="text" placeholder="Wallet Number"   class="form-control">
+                                <div class="invalid-feedback">Deadline date required</div>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="deadline" class="small mb-1">Wallet Number  <i>(optional)</i></label>
+                                <input id="wallet_code" name="wallet_code" type="text" placeholder="Wallet code "   class="form-control">
+                                <div class="invalid-feedback">Deadline date required</div>
                             </div>
 
 
-
                             <div class="mb-3 col-12">
-                                <input type="checkbox" id="is_published" name="is_published" value="1" /> Publish
+                                <input type="checkbox" id="is_published" checked name="is_published" value="1" /> Publish
                                 <div id="card-errors" class="small text-danger"></div>
                             </div>
                             <div class="mb-3">

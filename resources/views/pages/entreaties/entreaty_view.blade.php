@@ -244,7 +244,7 @@
                     $("#state-status").html(data.status);
 
                     chart_paid = data.paid;
-                    cahrt_remaining = data.remaining;
+                    chart_remaining = data.remaining;
                     initializeChart();
 
                     state = res;

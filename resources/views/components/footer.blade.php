@@ -18,7 +18,12 @@
             </div>
             <div class="col-12 col-md-4">
                 <h3>Links</h3>
-                <a class="text-white" href="https://github.com/ringunger/changia-web.git"><i class="la la-github">&nbsp;</i> Github Repo</a>
+                <a class="text-white" href="https://github.com/ringunger/changia-web.git"><i class="la la-github">&nbsp;</i> Github Repo</a><br />
+                <a class="text-white" href="https://beem.africa"><i class="la la-chevron-right">&nbsp;</i> Beem Africa</a>
+            </div>
+            <div class="col-12 col-md-4">
+                <h3>Socials</h3>
+                <a class="text-white" href="https://twitter.com/ringunger"><i class="la la-twitter">&nbsp;</i> Twitter</a>
             </div>
         </div>
     </div>

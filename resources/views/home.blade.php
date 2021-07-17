@@ -33,8 +33,8 @@
                 <div class="action">
                     <div class="w-100">
                         <i class="la-4x la la-arrow-circle-right"></i>
-                        <span class="float-right">
-                            <a href="{{ route('create_entreaty') }}" class="btn btn-outline-light ">New Entreaty</a>
+                        <span class="float-right mt-1">
+                            <a href="{{ route('create_entreaty') }}" class="btn btn-outline-light "><i class="la la-plus">&nbsp;</i> New Entreaty</a>
                         </span>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-12 col-sm-4 col-xl-3">
                 <form autocomplete="off">
-                    <input name="search" class="form-control search" placeholder="Search..." type="search" />
+                    <input name="search" id="search" class="form-control search" placeholder="Search..." type="search" />
                 </form>
             </div>
         </div>
@@ -61,7 +61,7 @@
 
 
             @foreach($entreaties as $entreaty)
-                <div class="row mt-3">
+                <div class="row mt-3 entreaty-item" data-title="{{$entreaty->title}}">
                     <div class="col-md-5 col-lg-4 col-xl-3">
                         <a href="#">
                             <img class="img-fluid rounded mb-3 mb-md-0" src="{{ asset($entreaty->getImage()) }}" alt="">
@@ -105,5 +105,24 @@
 
 @endsection
 @section('script')
-
+    <script>
+        $(function() {
+                $("#search").on('input', function () {
+                    var keyword = $(this).val();
+                    if(keyword == ''){
+                        $(".entreaty-item").show();
+                        return;
+                    }
+                    $(".entreaty-item").each(function(index, item) {
+                        var title = $(item).data('title');
+                        console.log(title);
+                        if(title.toLowerCase().includes(keyword.toLowerCase())){
+                            $(item).show();
+                        } else{
+                            $(item).hide();
+                        }
+                    });
+                })
+    });
+    </script>
 @endsection

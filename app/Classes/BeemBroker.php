@@ -29,6 +29,13 @@ class BeemBroker
         $this->auth_string = $this->generateAuthenticationString();
     }
 
+    /**
+     * Send SMS
+     * @param $to
+     * @param $message
+     * @param null $from
+     * @return false|\GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
+     */
     public function sendSms($to, $message, $from = null) {
         $endPoint = 'send';
         $data = [
@@ -114,6 +121,8 @@ class BeemBroker
 
     public function disburse($amount, $wallet_number, $wallet_code, $source = null){
         $source = $source ?? 'f09dc0d3';
+        $base_url = 'https://apipay.beem.africa/webservices/disbursement/';
+        $endpoint = 'transfer';
         $data = [
             "amount" => $amount,
             "client_reference_id" => time(),
@@ -129,6 +138,13 @@ class BeemBroker
                 ]
             ]
         ];
+        $response = $this->post($endpoint, $data, $base_url);
+        if($response) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     /**
